@@ -4,7 +4,17 @@ from jmcomic.cl import JmcomicUI
 # 下方填入你要下载的本子的id，一行一个，每行的首尾可以有空白字符
 jm_albums = '''
 
+from jmcomic import *
 
+client = JmOption.default().new_jm_client()
+
+# 分页查询，search_site就是禁漫网页上的【站内搜索】
+page: JmSearchPage = client.search_site(search_query='+MANA +无修正', page=1)
+print(f'结果总数: {page.total}, 分页大小: {page.page_size}，页数: {page.page_count}')
+
+# page默认的迭代方式是page.iter_id_title()，每次迭代返回 albun_id, title
+for album_id, title in page:
+    print(f'[{album_id}]: {title}')
 
 '''
 
